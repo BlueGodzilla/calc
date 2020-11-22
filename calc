@@ -8,10 +8,23 @@ help_prompt = f'''
 
  Use spaces to separate operators from operands (optional for parentheses)
 
+ You can divide you expression in blocks if it's too big:
+
+   $ {argv[0]} "2 + 2 \\"
+   $ ...* 2
+   $ 6 
+
 '''
 
 if len(argv) == 1 or argv[1] == 'help' or argv[1] == '--help' or argv[1] == '-h':
     exit(help_prompt)
+
+elif argv[1][-1] == '\\':
+    extra_exp = ''
+
+    while argv[1][-1] == '\\':
+        extra_exp = input('...')
+        argv[1] = argv[1].replace('\\', extra_exp)
 
 exp = calcm.parser(argv[1])
 
