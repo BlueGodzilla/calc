@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+from sys import argv
+import calcm # calc module
+
+if len(argv) == 1:
+    exit('(no expression)')
+
+exp = calcm.parser(argv[1])
+
+exp = calcm.calc(exp)
+
+if exp == int(exp):
+    print(int(exp))
+else:
+    print(exp)
