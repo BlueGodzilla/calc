@@ -3,8 +3,15 @@
 from sys import argv
 import calcm # calc module
 
-if len(argv) == 1:
-    exit('(no expression)')
+help_prompt = f'''
+ Usage: {argv[0]} "2 + 2"
+
+ Use spaces to separate operators from operands (optional for parentheses)
+
+'''
+
+if len(argv) == 1 or argv[1] == 'help' or argv[1] == '--help' or argv[1] == '-h':
+    exit(help_prompt)
 
 exp = calcm.parser(argv[1])
 
