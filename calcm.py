@@ -23,7 +23,7 @@ def parser(exp):
     # check exp for valid syntax
     for op in exp:
         if not is_number(op) and not is_op(op):
-            exit('Invalid Syntax')
+            exit(f'Invalid operator/operand: \'{op}\'')
 
     for i in range(0, len(exp)):
         if is_number(exp[i]):
@@ -41,7 +41,7 @@ def evaluate(exp):
             if is_op(exp[i]):
 
                 if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
-                    exit('Invalid Syntax')
+                    exit(f'\'{exp[i]}\' should go with two operands')
 
                 if exp[i] == '*':
                     exp[i - 1] = exp[i - 1] * exp[i + 1]
@@ -64,7 +64,7 @@ def evaluate(exp):
             if is_op(exp[i]):
 
                 if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
-                    exit('Invalid Syntax')
+                    exit(f'\'{exp[i]}\' should go with two operands')
 
                 if exp[i] == '+':
                     exp[i - 1] = exp[i - 1] + exp[i + 1]
@@ -79,7 +79,7 @@ def evaluate(exp):
 
             i += 1
     except TypeError:
-        exit('Invalid Syntax')
+        exit(f'Invalid arithmetic expression: \'{" ".join(str(x) for x in exp)}\'')
 
     return exp
 
@@ -96,16 +96,19 @@ def calc(exp):
             opar = i
         elif exp[i] == ')':
             if opar == -1:
-                exit('Invalid Syntax')
+                exit('Unfound open parenthesis')
             cpar = i
             try:
                 exp[opar] = evaluate(exp[opar + 1:cpar])[0] # replacing open parenthesis with the result
                 del exp[opar + 1:cpar + 1] # Deleting garbage
             except IndexError:
-                exit('Invalid Syntax')
+                exit('You should have something inside parentheses')
             i = -1
 
         i += 1
+
+    if opar != -1 and cpar == -1:
+        exit('Found unclosed open parenthesis')
 
     exp = evaluate(exp)
     return exp[0]
