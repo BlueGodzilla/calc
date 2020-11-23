@@ -1,12 +1,13 @@
 def split(exp):
     exp = exp.replace('(', '( ')
     exp = exp.replace(')', ' )')
+    exp = exp.replace('^', ' ^ ')
     exp = exp.split()
 
     return exp
 
 def is_op(op):
-    return op in ('+', '-', '/', '*', '(', ')')
+    return op in ('+', '-', '/', '*', '^', '(', ')')
 
 def is_number(n):
     try:
@@ -37,7 +38,23 @@ def evaluate(exp):
 
         i = 0
         
-        while i < len(exp): # first cycle, * and /
+        while i < len(exp): # first cycle, ^
+            if is_op(exp[i]):
+
+                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                    exit(f'\'{exp[i]}\' should go with two operands')
+
+                if exp[i] == '^':
+                    exp[i - 1] = pow(exp[i - 1], exp[i + 1])
+                    del exp[i] # deleting unnecessary elements
+                    del exp[i]
+                    i = -1
+
+            i += 1
+
+        i = 0
+        
+        while i < len(exp): # second cycle, * and /
             if is_op(exp[i]):
 
                 if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
@@ -60,7 +77,7 @@ def evaluate(exp):
 
         i = 0
 
-        while i < len(exp): # second cycle, + and -
+        while i < len(exp): # third cycle, + and -
             if is_op(exp[i]):
 
                 if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
