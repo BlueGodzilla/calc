@@ -33,51 +33,53 @@ def parser(exp):
 
 def evaluate(exp):
 
-    i = 0
-    
-    while i < len(exp): # first cycle, * and /
-        if is_op(exp[i]):
+    try:
 
-            if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
-                exit('Invalid Syntax')
+        i = 0
+        
+        while i < len(exp): # first cycle, * and /
+            if is_op(exp[i]):
 
-            if exp[i] == '*':
-                exp[i - 1] = exp[i - 1] * exp[i + 1]
-                del exp[i] # deleting unnecessary elements
-                del exp[i]
-                i = -1
-            elif exp[i] == '/':
-                exp[i - 1] = exp[i - 1] / exp[i + 1]
-                del exp[i]
-                del exp[i]
-                i = -1
+                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                    exit('Invalid Syntax')
 
-        i += 1
+                if exp[i] == '*':
+                    exp[i - 1] = exp[i - 1] * exp[i + 1]
+                    del exp[i] # deleting unnecessary elements
+                    del exp[i]
+                    i = -1
+                elif exp[i] == '/':
+                    exp[i - 1] = exp[i - 1] / exp[i + 1]
+                    del exp[i]
+                    del exp[i]
+                    i = -1
 
-    # TODO: *maybe* improve this copypaste
+            i += 1
 
-    i = 0
+        # TODO: *maybe* improve this copypaste
 
-    while i < len(exp): # second cycle, + and -
-        if is_op(exp[i]):
+        i = 0
 
-            if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
-                exit('Invalid Syntax')
+        while i < len(exp): # second cycle, + and -
+            if is_op(exp[i]):
 
-            if exp[i] == '+':
-                exp[i - 1] = exp[i - 1] + exp[i + 1]
-                del exp[i] # deleting unnecessary elements
-                del exp[i]
-                i = -1
-            elif exp[i] == '-':
-                exp[i - 1] = exp[i - 1] - exp[i + 1]
-                del exp[i]
-                del exp[i]
-                i = -1
+                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                    exit('Invalid Syntax')
 
-        i += 1
+                if exp[i] == '+':
+                    exp[i - 1] = exp[i - 1] + exp[i + 1]
+                    del exp[i] # deleting unnecessary elements
+                    del exp[i]
+                    i = -1
+                elif exp[i] == '-':
+                    exp[i - 1] = exp[i - 1] - exp[i + 1]
+                    del exp[i]
+                    del exp[i]
+                    i = -1
 
-
+            i += 1
+    except TypeError:
+        exit('Invalid Syntax')
 
     return exp
 
@@ -94,7 +96,7 @@ def calc(exp):
             opar = i
         elif exp[i] == ')':
             if opar == -1:
-                exit('Invalid Syntax') # I'm not checking for existence of a close parenthesis 'cause the `evaluate` function will do it 
+                exit('Invalid Syntax')
             cpar = i
             try:
                 exp[opar] = evaluate(exp[opar + 1:cpar])[0] # replacing open parenthesis with the result
