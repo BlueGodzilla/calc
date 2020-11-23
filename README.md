@@ -1,3 +1,3 @@
 # calc
 
-Usage: ```$ ./calc "2 + 2"```
+Usage: ```$ ./calc '2 + 2'```
