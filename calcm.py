@@ -133,4 +133,11 @@ def calc(exp):
         exit('Found unclosed open parenthesis')
 
     exp = parser(exp)
-    return exp[0]
+
+    try:
+        if exp[0] == int(exp[0]):
+            return int(exp[0])
+        else:
+            return exp[0]
+    except TypeError:
+        return exp[0]
