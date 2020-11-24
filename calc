@@ -28,7 +28,10 @@ if len(argv) == 1 or argv[1] == 'help' or argv[1] == '--help' or argv[1] == '-h'
 
 exp = calcm.calc(argv[1])
 
-if exp == int(exp):
-    print(int(exp))
-else:
+try:
+    if exp == int(exp):
+        print(int(exp))
+    else:
+        print(exp)
+except TypeError:
     print(exp)
