@@ -86,6 +86,8 @@ def parser(exp):
         exit(f'Invalid arithmetic expression: \'{" ".join(str(x) for x in exp)}\'')
     except IndexError:
         exit(f'\'{exp[i]}\' should go with two operands')
+    except ZeroDivisionError:
+        exit('You can\'t divide by zero')
 
     return exp
 
