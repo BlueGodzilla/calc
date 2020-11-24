@@ -7,7 +7,7 @@ def split(exp):
     return exp
 
 def is_op(op):
-    return op in ('+', '-', '/', '*', '^', '(', ')')
+    return op in ('+', '-', '/', '*', '^', 'sqrt', '(', ')')
 
 def is_number(n):
     try:
@@ -43,8 +43,8 @@ def parser(exp):
             while i < len(exp):
                 if is_op(exp[i]):
 
-                    if i == 0: # Handle a bug with -1 list posiition
-                        exit(f'\'{exp[i]}\' should go with two operands')
+                    if i == 0 and exp[i] != 'sqrt': # Handle a bug with -1 list posiition
+                        exit(f'Bad usage of \'{exp[i]}\' operator')
 
                     if level == 1: # First level, ^
 
@@ -52,6 +52,10 @@ def parser(exp):
                             exp[i - 1] = pow(exp[i - 1], exp[i + 1])
                             del exp[i] # deleting unnecessary elements
                             del exp[i]
+                            i = -1
+                        elif exp[i] == 'sqrt':
+                            exp[i] = pow(exp[i + 1], float(1 / 2))
+                            del exp[i + 1]
                             i = -1
 
                     elif level == 2: # Second level, * and /
@@ -85,7 +89,7 @@ def parser(exp):
     except TypeError:
         exit(f'Invalid arithmetic expression: \'{" ".join(str(x) for x in exp)}\'')
     except IndexError:
-        exit(f'\'{exp[i]}\' should go with two operands')
+        exit(f'Bad usage of \'{exp[i]}\' operator')
     except ZeroDivisionError:
         exit('You can\'t divide by zero')
 
