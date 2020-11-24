@@ -35,7 +35,7 @@ elif argv[1][-1] == '\\':
         argv[1] = argv[1].replace('\\', extra_exp, 1)
 
 
-exp = calcm.parser(argv[1])
+exp = calcm.lexer(argv[1])
 
 exp = calcm.calc(exp)
 

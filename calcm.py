@@ -18,7 +18,7 @@ def is_number(n):
         return False
     return True
 
-def parser(exp):
+def lexer(exp):
     exp = split(exp)
 
     # check exp for valid syntax
@@ -32,7 +32,7 @@ def parser(exp):
 
     return exp
 
-def evaluate(exp):
+def parser(exp):
 
     try:
 
@@ -119,7 +119,7 @@ def calc(exp):
                 exit('Unfound open parenthesis')
             cpar = i
             try:
-                exp[opar] = evaluate(exp[opar + 1:cpar])[0] # replacing open parenthesis with the result
+                exp[opar] = parser(exp[opar + 1:cpar])[0] # replacing open parenthesis with the result
                 del exp[opar + 1:cpar + 1] # Deleting garbage
             except IndexError:
                 exit('You should have something inside parentheses')
@@ -130,5 +130,5 @@ def calc(exp):
     if opar != -1 and cpar == -1:
         exit('Found unclosed open parenthesis')
 
-    exp = evaluate(exp)
+    exp = parser(exp)
     return exp[0]
