@@ -91,6 +91,8 @@ def parser(exp):
 
 def calc(exp):
 
+    exp = lexer(exp)
+
     opar = -1 # position of open parentheses
     cpar = -1 # position of close parentheses
 
