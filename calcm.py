@@ -35,66 +35,52 @@ def lexer(exp):
 def parser(exp):
 
     try:
-
-        i = 0
         
-        while i < len(exp): # first cycle, ^
-            if is_op(exp[i]):
-
-                if i == 0: # Handle a bug with -1 list posiition
-                    exit(f'\'{exp[i]}\' should go with two operands')
-
-                if exp[i] == '^':
-                    exp[i - 1] = pow(exp[i - 1], exp[i + 1])
-                    del exp[i] # deleting unnecessary elements
-                    del exp[i]
-                    i = -1
-
-            i += 1
-
-        i = 0
+        for level in range(1, 4):
         
-        while i < len(exp): # second cycle, * and /
-            if is_op(exp[i]):
+            i = 0
 
-                if i == 0: # Handle a bug with -1 list posiition
-                    exit(f'\'{exp[i]}\' should go with two operands')
+            while i < len(exp):
+                if is_op(exp[i]):
 
-                if exp[i] == '*':
-                    exp[i - 1] = exp[i - 1] * exp[i + 1]
-                    del exp[i] # deleting unnecessary elements
-                    del exp[i]
-                    i = -1
-                elif exp[i] == '/':
-                    exp[i - 1] = exp[i - 1] / exp[i + 1]
-                    del exp[i]
-                    del exp[i]
-                    i = -1
+                    if i == 0: # Handle a bug with -1 list posiition
+                        exit(f'\'{exp[i]}\' should go with two operands')
 
-            i += 1
+                    if level == 1: # First level, ^
 
-        # TODO: *maybe* improve this copypaste
+                        if exp[i] == '^':
+                            exp[i - 1] = pow(exp[i - 1], exp[i + 1])
+                            del exp[i] # deleting unnecessary elements
+                            del exp[i]
+                            i = -1
 
-        i = 0
+                    elif level == 2: # Second level, * and /
 
-        while i < len(exp): # third cycle, + and -
-            if is_op(exp[i]):
+                        if exp[i] == '*':
+                            exp[i - 1] = exp[i - 1] * exp[i + 1]
+                            del exp[i]
+                            del exp[i]
+                            i = -1
+                        elif exp[i] == '/':
+                            exp[i - 1] = exp[i - 1] / exp[i + 1]
+                            del exp[i]
+                            del exp[i]
+                            i = -1
 
-                if i == 0: # Handle a bug with -1 list posiition
-                    exit(f'\'{exp[i]}\' should go with two operands')
+                    elif level == 3: # Third level, + and -
 
-                if exp[i] == '+':
-                    exp[i - 1] = exp[i - 1] + exp[i + 1]
-                    del exp[i] # deleting unnecessary elements
-                    del exp[i]
-                    i = -1
-                elif exp[i] == '-':
-                    exp[i - 1] = exp[i - 1] - exp[i + 1]
-                    del exp[i]
-                    del exp[i]
-                    i = -1
+                        if exp[i] == '+':
+                            exp[i - 1] = exp[i - 1] + exp[i + 1]
+                            del exp[i]
+                            del exp[i]
+                            i = -1
+                        elif exp[i] == '-':
+                            exp[i - 1] = exp[i - 1] - exp[i + 1]
+                            del exp[i]
+                            del exp[i]
+                            i = -1
 
-            i += 1
+                i += 1
 
     except TypeError:
         exit(f'Invalid arithmetic expression: \'{" ".join(str(x) for x in exp)}\'')
