@@ -91,6 +91,14 @@ def parser(exp):
 
 def calc(exp):
 
+    if '\\' in exp:
+
+        slashes = exp.count('\\')
+
+        for _ in range(0, slashes):
+            extra_exp = input('...')
+            exp = exp.replace('\\', extra_exp, 1)
+
     exp = lexer(exp)
 
     opar = -1 # position of open parentheses
