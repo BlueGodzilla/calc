@@ -41,7 +41,7 @@ def evaluate(exp):
         while i < len(exp): # first cycle, ^
             if is_op(exp[i]):
 
-                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                if i == 0: # Handle a bug with -1 list posiition
                     exit(f'\'{exp[i]}\' should go with two operands')
 
                 if exp[i] == '^':
@@ -57,7 +57,7 @@ def evaluate(exp):
         while i < len(exp): # second cycle, * and /
             if is_op(exp[i]):
 
-                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                if i == 0: # Handle a bug with -1 list posiition
                     exit(f'\'{exp[i]}\' should go with two operands')
 
                 if exp[i] == '*':
@@ -80,7 +80,7 @@ def evaluate(exp):
         while i < len(exp): # third cycle, + and -
             if is_op(exp[i]):
 
-                if i == 0 or i == len(exp) - 1: # check if an operator is the last/first element
+                if i == 0: # Handle a bug with -1 list posiition
                     exit(f'\'{exp[i]}\' should go with two operands')
 
                 if exp[i] == '+':
@@ -95,8 +95,11 @@ def evaluate(exp):
                     i = -1
 
             i += 1
+
     except TypeError:
         exit(f'Invalid arithmetic expression: \'{" ".join(str(x) for x in exp)}\'')
+    except IndexError:
+        exit(f'\'{exp[i]}\' should go with two operands')
 
     return exp
 
