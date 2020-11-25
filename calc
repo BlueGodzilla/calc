@@ -27,3 +27,4 @@ if len(argv) == 1 or argv[1] == 'help' or argv[1] == '--help' or argv[1] == '-h'
     exit(help_prompt)
 
 exp = calcm.calc(argv[1])
+print(exp)
