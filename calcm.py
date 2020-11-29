@@ -121,7 +121,7 @@ def calc(exp):
             opar = i
         elif exp[i] == ')':
             if opar == -1:
-                exit('Unfound open parenthesis')
+                exit('Unmatched \')\'')
             cpar = i
             try:
                 exp[opar] = parser(exp[opar + 1:cpar])[0] # replacing open parenthesis with the result
@@ -129,11 +129,13 @@ def calc(exp):
             except IndexError:
                 exit('You should have something inside parentheses')
             i = -1
+            opar = -1
+            cpar = -1
 
         i += 1
 
     if opar != -1 and cpar == -1:
-        exit('Found unclosed open parenthesis')
+        exit('Unmatched \'(\'')
 
     exp = parser(exp)
 
