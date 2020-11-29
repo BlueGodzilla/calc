@@ -19,6 +19,9 @@ def is_number(n):
     return True
 
 def lexer(exp):
+    if not exp:
+        exit('No expression')
+
     exp = split(exp)
 
     # check exp for valid syntax
