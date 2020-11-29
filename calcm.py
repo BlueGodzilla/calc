@@ -139,10 +139,22 @@ def calc(exp):
 
     exp = parser(exp)
 
-    try:
-        if exp[0] == int(exp[0]):
-            return int(exp[0])
-        else:
-            return exp[0]
-    except TypeError:
+    for i in range(0, len(exp)):
+
+        try:
+            if exp[i] == int(exp[i]):
+                exp[i] = int(exp[i])
+            else:
+                continue
+        except TypeError: # can't convert complex number to an int
+            continue
+
+    if len(exp) != 1:
+
+        for i in range(0, len(exp)):
+            exp[i] = str(exp[i])
+
+        return ' '.join(exp)
+
+    else:
         return exp[0]

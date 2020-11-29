@@ -21,6 +21,11 @@ help_prompt = f'''
    $ ...2
    $ 6 
 
+ You can also have 2 or more separated expressions and '{argv[0]}' will calculate them without any problem:
+
+   $ {argv[0]} '2 + 2 * 2   2 * sqrt 81'
+   $ 6 18
+
 '''
 
 if len(argv) == 1 or argv[1] == 'help' or argv[1] == '--help' or argv[1] == '-h':
