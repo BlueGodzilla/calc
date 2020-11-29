@@ -8,6 +8,21 @@ help_prompt = f'''
 
  Use spaces to separate operators from operands (optional for parentheses)
 
+ Supported operators:
+
+    +       addition
+    
+    -       subtraction
+    
+    *       multiplication
+    
+    /       division
+    
+    \\      block
+
+    sqrt    square root
+
+
  You can divide you expression in blocks if it's too big:
 
    $ {argv[0]} '2 + 2 \\'
