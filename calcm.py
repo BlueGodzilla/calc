@@ -1,13 +1,14 @@
+ops = ('+', '-', '/', '*', '^', 'sqrt', '(', ')')
+
 def split(exp):
-    exp = exp.replace('(', '( ')
-    exp = exp.replace(')', ' )')
-    exp = exp.replace('^', ' ^ ')
+    for op in ops:
+        exp = exp.replace(op, f' {op} ')
     exp = exp.split()
 
     return exp
 
 def is_op(op):
-    return op in ('+', '-', '/', '*', '^', 'sqrt', '(', ')')
+    return op in ops
 
 def is_number(n):
     try:
@@ -17,6 +18,23 @@ def is_number(n):
     except ValueError:
         return False
     return True
+
+def setsign(exp):
+
+    i = 0
+    try:
+        while i < len(exp):
+        
+            if exp[i] == '+' or exp[i] == '-':
+                if not is_number(exp[i - 1]) or i == 0:
+                    exp[i + 1] = float(exp[i] + str(exp[i + 1]))
+                    del exp[i]
+                    i = -1
+            i += 1
+    except ValueError:
+        exit(f'Bad usage of \'{exp[i]}\' operator')
+
+    return exp
 
 def lexer(exp):
     if not exp:
@@ -36,6 +54,8 @@ def lexer(exp):
     return exp
 
 def parser(exp):
+
+    exp = setsign(exp)
 
     try:
         
@@ -57,6 +77,8 @@ def parser(exp):
                             del exp[i]
                             i = -1
                         elif exp[i] == 'sqrt':
+                            if exp[i + 1] < 0:
+                                exit('Complex numbers are not supported')
                             exp[i] = pow(exp[i + 1], float(1 / 2))
                             del exp[i + 1]
                             i = -1
@@ -141,12 +163,9 @@ def calc(exp):
 
     for i in range(0, len(exp)):
 
-        try:
-            if exp[i] == int(exp[i]):
-                exp[i] = int(exp[i])
-            else:
-                continue
-        except TypeError: # can't convert complex number to an int
+        if exp[i] == int(exp[i]):
+            exp[i] = int(exp[i])
+        else:
             continue
 
     if len(exp) != 1:
