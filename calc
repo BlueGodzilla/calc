@@ -6,8 +6,6 @@ import calcm # calc module
 help_prompt = f'''
  Usage: {argv[0]} '2 + 2'
 
- Use spaces to separate operators from operands (optional for parentheses)
-
  Supported operators:
 
     +       addition
@@ -38,7 +36,7 @@ help_prompt = f'''
 
  You can also have 2 or more separated expressions and '{argv[0]}' will calculate them without any problem:
 
-   $ {argv[0]} '2 + 2 * 2   2 * sqrt 81'
+   $ {argv[0]} '(2 + 2 * 2)   (2 * sqrt 81)'
    $ 6 18
 
 '''
