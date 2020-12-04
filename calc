@@ -16,7 +16,7 @@ help_prompt = f'''
     
     /       division
     
-    \\      block
+    \\       block
 
     sqrt    square root
 
