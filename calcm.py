@@ -173,7 +173,7 @@ def calc(exp):
         for i in range(0, len(exp)):
             exp[i] = str(exp[i])
 
-        return ' '.join(exp)
+        return ' | '.join(exp)
 
     else:
         return exp[0]
